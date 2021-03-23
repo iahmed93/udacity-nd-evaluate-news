@@ -19,7 +19,8 @@ function handleSubmit(event) {
         .then(response => response.json())
         .then(data => {
             // document.getElementById('results').innerHTML = res.message
-            console.log(data)
+            console.log(data);
+            Client.updateUI(data);
         })
         .catch((error) => {
             console.error('Error:', error);
