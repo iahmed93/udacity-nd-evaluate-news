@@ -7,3 +7,7 @@
 
 - Run "npm run start" 
 - go to "localhost:3000"# udacity-nd-evaluate-news
+
+# For Testing run
+
+- npm test
