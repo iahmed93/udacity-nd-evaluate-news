@@ -3,6 +3,7 @@ const express = require('express')
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser')
 const axios = require('axios');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -11,9 +12,10 @@ const MAIN_CLOUD_URL = 'https://api.meaningcloud.com/sentiment-2.1';
 
 const app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
-
 app.use(express.static('dist'))
+
 
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
@@ -31,10 +33,11 @@ app.post('/find-meaning', async (req, res) => {
         response = await sendRequest(req.body.url);
     } catch (error) {
         console.error(error);
+        return res.status(500).send(error);
     }
 
 
-    console.log(response);
+    // console.log(response);
 
     const result = {
         agreement: response.data.agreement,
