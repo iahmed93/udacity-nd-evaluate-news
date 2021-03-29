@@ -9,5 +9,5 @@
 - go to "localhost:3000"# udacity-nd-evaluate-news
 
 # For Testing run
-
-- npm test
+- "npm run start" in one terminal
+- "npm test" in another terminal

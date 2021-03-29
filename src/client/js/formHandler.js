@@ -1,4 +1,5 @@
-function handleSubmit(event) {
+import fetch from 'node-fetch'
+export function handleSubmit(event) {
     event.preventDefault()
 
     let url = document.getElementById('name').value
@@ -8,23 +9,29 @@ function handleSubmit(event) {
         return;
     }
     console.log("::: Form Submitted :::")
-    
-    fetch('http://localhost:3000/find-meaning', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ url }),
-    })
-        .then(response => response.json())
+
+    doRequest(url)
         .then(data => {
-            // document.getElementById('results').innerHTML = res.message
-            console.log(data);
             Client.updateUI(data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
         });
 }
 
-export { handleSubmit }
+export async function doRequest(url) {
+    console.log(url);
+    try {
+        const res = await fetch('http://localhost:8081/find-meaning', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url }),
+        });
+        const data = await res.json();
+        return data;
+
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+
+}
